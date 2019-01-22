@@ -89,15 +89,12 @@ def largest_number(seq_seq):
     #     elif x < per[i]:
     #         x = per[i]
     # return x
-    max = -9999999999999999999999999999999999999
+    max = None
     for k in range(len(seq_seq)):
         for j in range(len(seq_seq[k])):
-            if max < seq_seq[k][j]:
+            if max is None or max < seq_seq[k][j]:
                 max = seq_seq[k][j]
-    if max == -9999999999999999999999999999999999999:
-        return None
-    else:
-        return max
+    return max
 
     # -------------------------------------------------------------------------
     # DO: 3. Implement and test this function.
@@ -414,13 +411,13 @@ def first_is_elsewhere_too(seq_seq):
       :type seq_seq: (list, tuple)
     and the given argument is a sequence of sequences.
     """
-    if len(seq_seq[0]) == 0 or len(seq_seq) == 0:
+    if len(seq_seq)== 0 or len(seq_seq[0]) == 0:
         return False
     else:
-        for k in range(len(seq_seq)-1):
-            for i in range(len(seq_seq[k])-1):
+        for k in range(1,len(seq_seq)):
+            for i in range(1,len(seq_seq[k])):
                 for j in range(len(seq_seq[0])):
-                    if seq_seq[0][j] == seq_seq[k+1][i+1]:
+                    if seq_seq[0][j] == seq_seq[k][i]:
                         return True
         return False
     # -------------------------------------------------------------------------
