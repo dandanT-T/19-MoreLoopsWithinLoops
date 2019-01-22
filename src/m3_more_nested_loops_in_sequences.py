@@ -4,8 +4,8 @@ in the context of SEQUENCES OF SUB-SEQUENCES.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Zhicheng Kai.
+"""  # DO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 
 def main():
@@ -18,7 +18,7 @@ def main():
 def run_test_largest_number():
     """ Tests the    largest_number    function. """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # DO: 2. Implement this TEST function.
     #   It TESTS the  largest_number  function defined below.
     #   Include at least ** 1 ** ADDITIONAL test beyond those we wrote.
     # -------------------------------------------------------------------------
@@ -44,7 +44,11 @@ def run_test_largest_number():
     answer = largest_number(([], [], []))
     print('Expected and actual are:', expected, answer)
 
-    # TODO 2 (continued): Add your ADDITIONAL test(s) here:
+    # TO 2 (continued): Add your ADDITIONAL test(s) here:
+    # Test 4:
+    expected = 123
+    answer = largest_number(([1], [2], [123]))
+    print('Expected and actual are:', expected, answer)
 
 
 def largest_number(seq_seq):
@@ -72,8 +76,31 @@ def largest_number(seq_seq):
     and the given argument is a sequence of sequences,
     where each subsequence contains only numbers.
     """
+    # per = []
+    # for k in range(len(seq_seq)):
+    #     for j in range(len(seq_seq[k])):
+    #         if len(seq_seq[k])==0:
+    #             per = per + []
+    #         elif seq_seq[k][j]> seq_seq[k][j-1]:
+    #             per = per + [seq_seq[k][j]]
+    # for i in range(len(per)):
+    #     if len(per) ==0:
+    #         return None
+    #     elif x < per[i]:
+    #         x = per[i]
+    # return x
+    max = -9999999999999999999999999999999999999
+    for k in range(len(seq_seq)):
+        for j in range(len(seq_seq[k])):
+            if max < seq_seq[k][j]:
+                max = seq_seq[k][j]
+    if max == -9999999999999999999999999999999999999:
+        return None
+    else:
+        return max
+
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DO: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # -------------------------------------------------------------------------
 
@@ -81,7 +108,7 @@ def largest_number(seq_seq):
 def run_test_largest_negative_number():
     """ Tests the    largest_negative_number    function. """
     # -------------------------------------------------------------------------
-    # TODO: 4. Implement this TEST function.
+    # DO: 4. Implement this TEST function.
     #   It TESTS the  largest_negative_number  function defined below.
     #
     #   Include enough tests to give you confidence that your solution
@@ -91,6 +118,28 @@ def run_test_largest_negative_number():
     print('-------------------------------------------------')
     print('Testing the   LARGEST_NEGATIVE_NUMBER   function:')
     print('-------------------------------------------------')
+    # Test 1:
+    expected = -13
+    answer = largest_negative_number([(3, 1, 4),
+                             (-13, 10, 11, 7, 10),
+                             [1, 2, 3, 4]])
+    print('Expected and actual are:', expected, answer)
+
+    # Test 2:
+    expected = -1111111111111111
+    answer = largest_negative_number(([], [-1111111111111111], []))
+    print('Expected and actual are:', expected, answer)
+
+    # Test 3:
+    expected = None
+    answer = largest_negative_number(([], [], []))
+    print('Expected and actual are:', expected, answer)
+
+
+    # Test 4:
+    expected = -1
+    answer = largest_negative_number(([-1], [-2], [-123]))
+    print('Expected and actual are:', expected, answer)
 
 
 def largest_negative_number(seq_seq):
@@ -115,8 +164,18 @@ def largest_negative_number(seq_seq):
     and the given argument is a sequence of sequences,
     where each subsequence contains only numbers.
     """
+    max = -9999999999999999999999999999999999999
+    for k in range(len(seq_seq)):
+        for j in range(len(seq_seq[k])):
+            if max < seq_seq[k][j] and seq_seq[k][j] < 0:
+                max = seq_seq[k][j]
+    if max == -9999999999999999999999999999999999999:
+        return None
+    else:
+        return max
+
     # -------------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DO: 5. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # CHALLENGE: Try to solve this problem with no additional sequences
@@ -355,6 +414,15 @@ def first_is_elsewhere_too(seq_seq):
       :type seq_seq: (list, tuple)
     and the given argument is a sequence of sequences.
     """
+    if len(seq_seq[0]) == 0 or len(seq_seq) == 0:
+        return False
+    else:
+        for k in range(len(seq_seq)-1):
+            for i in range(len(seq_seq[k])-1):
+                for j in range(len(seq_seq[0])):
+                    if seq_seq[0][j] == seq_seq[k+1][i+1]:
+                        return True
+        return False
     # -------------------------------------------------------------------------
     # TODO: 6. Implement and test this function.
     #          Some tests are already written for you (above).
